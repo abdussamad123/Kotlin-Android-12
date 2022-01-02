@@ -18,15 +18,10 @@ class MainActivityRepo @Inject constructor(private var nrlmApiServices: NrlmApiS
     fun callOtpApi(otpRequestBean: OtpRequestBean){
 
         var call: Call<OtpResponseData> = nrlmApiServices.otpApi(otpRequestBean)
-        call.enqueue(object :
-            Callback<OtpResponseData> {
-            override fun onResponse(
-                call: Call<OtpResponseData>,
-                response: Response<OtpResponseData>
-            ) {
+        call.enqueue(object :Callback<OtpResponseData> {
+            override fun onResponse(call: Call<OtpResponseData>, response: Response<OtpResponseData>){
                 AppUtil.showLog(response.body().toString(),MainActivityRepo::class.java)
             }
-
             override fun onFailure(call: Call<OtpResponseData>, t: Throwable) {
                 AppUtil.showLog(t.message.toString(),MainActivityRepo::class.java)
             }
@@ -36,13 +31,9 @@ class MainActivityRepo @Inject constructor(private var nrlmApiServices: NrlmApiS
     fun callPostApi(){
         var call:Call<List<PostResponseData>> = jsonHolderApiServices.getPostApi()
         call.enqueue(object : Callback<List<PostResponseData>>{
-            override fun onResponse(
-                call: Call<List<PostResponseData>>,
-                response: Response<List<PostResponseData>>
-            ) {
+            override fun onResponse(call: Call<List<PostResponseData>>,response: Response<List<PostResponseData>>) {
                 AppUtil.showLog(response.body().toString(),MainActivityRepo::class.java)
             }
-
             override fun onFailure(call: Call<List<PostResponseData>>, t: Throwable) {
                 AppUtil.showLog(t.message.toString(),MainActivityRepo::class.java)
             }
